@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    RewriteCond %{HTTP_HOST} ^www.moortipalace\.in$ [NC]
+    RewriteRule ^(.*)$ Http://moortipalace.in/$1 [R=301,L]
+
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*(default|index|main)\.(html|php|htm)\ HTTP/ [NC]
+    RewriteRule ^(([^/]+/)*)(default|main|index)\.(html|php|htm)$ http://www.site.com/$1 [L,R=301]
+
+
+    RewriteCond %{HTTP_HOST} !^www\.moortipalace.in\.in
+    RewriteRule ^(.*)$ http://www.moortipalace.in/$1 [R=301,L]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
